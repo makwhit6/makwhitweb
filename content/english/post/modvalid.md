@@ -6,7 +6,7 @@ tags:
 - markdown
 - text
 series:
-- Themes Guide
+- series-setup
 tags:
 - markdown
 - css

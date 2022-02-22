@@ -30,5 +30,5 @@ pygmentsCodefencesGuessSyntax = true
 
 [taxonomies]
     category = "categories"
-    series = "series"
+    series = "readability"
     tag = "tags"
