@@ -8,8 +8,8 @@ tags:
 series:
 - series-setup
 tags:
-- markdown
-- css
-- html
+- readability
+- textfeatures
+- postagging
 title: Developing Text Features
 ---

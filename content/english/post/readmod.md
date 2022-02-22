@@ -8,9 +8,9 @@ tags:
 series:
 - series-setup
 tags:
-- markdown
-- css
-- html
+- readability
+- modelproduction
+- linearregression
 title: Readability Model
 ---
 

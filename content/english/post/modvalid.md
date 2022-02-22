@@ -8,9 +8,9 @@ tags:
 series:
 - series-setup
 tags:
-- markdown
-- css
-- html
+- readability
+- easyCBM
+- validation
 title: Model Validation with easyCBM
 ---
 

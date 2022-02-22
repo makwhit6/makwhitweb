@@ -8,9 +8,9 @@ tags:
 series:
 - series-setup
 tags:
-- markdown
-- css
-- html
+- readability
+- CORE
+- validation
 title: Model Validation with CORE
 ---
 
