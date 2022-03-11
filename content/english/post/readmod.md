@@ -24,22 +24,3 @@ The readability of a passage determines how well a reader interacts with the ove
 ## Text Features
 ## Ridge Line Penalty
 
-# easyCBM
-Educational researchers at the University of Oregon developed easyCBM as a tool for assessing students on their reading skills. These short assessments give teachers insight into areas of struggle for their students, what supports teachers can provide, and how effective their overall teaching is (cite website). The easyCBM program uses reading passages that have been analyzed and scored for each grade level. With the permission of researchers, this project uses easyCBM passages to train and test the readability model. 
-
-## Data
-
-| form_grade  | form_number | score |     sd    |     n    | excerpt | readability score |
-| ----------- | ----------- | ----- | --------- | -------- | ------- | ----------------- |
-| grade level | form number | mean  | standard  | total    |  form   |  model produced   |
-|   of form   | assigned    | WRC   | deviation | students |  text   |  passage level    |
-
-## Model Tuning
-## Results
-
-# CORE
-Computerized Oral Reading Evaluation (CORE) is a project led by Dr. Joe Nese housed within the Behavioral Research and Teaching Facility at the University of Oregon. This project is focused on using computerized assessment of oral reading fluency to analyze aspects of the reading process in 2nd - 4th graders (cite Joe's blog). 
-## Data
-## Model Tuning
-## Results
-
