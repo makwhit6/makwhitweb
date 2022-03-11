@@ -1,6 +1,6 @@
 ---
 author: Makayla Whitney
-date: "2022-02-21"
+date: "2022-03-03"
 description: model development process
 tags:
 - markdown
@@ -96,9 +96,130 @@ require(udpipe)
 udpipe_download_model(language = "english")
 ud_eng <- udpipe_load_model(here('english-ewt-ud-2.5-191206.udpipe'))
 ```
-In order to split the text into its lemmas, 
+### Part of Speech Tags (POS)
+A part of speech tag is added to each of the lemmas disseminated from the previous code. These values can be quantified to give information about a block of text. They can also be used as a feature in determining overall readability of a passage. 
+The part of speech tags come from a list of [Universal POS Tags](https://universaldependencies.org/u/pos/index.html "Universal POS Tags"). More information regarding their abbreviations can be found on [Oxford English part-of-speech Tagset](https://www.sketchengine.eu/oxford-english-corpus-tagset/ "Oxford English part-of-speech Tagset").
+```
+annotated <- udpipe_annotate(ud_eng, x = new.text)
+annotated <- as.data.frame(annotated)
+annotated <- cbind_morphological(annotated)
+  
+pos_tags <- c(table(annotated$upos),table(annotated$xpos))
+    
+```
+### Syntactic Relations and Morphological Features
+Another text feature developed is syntactic relations. There are 37 tags for [universal syntactic relations](https://universaldependencies.org/u/dep/index.html "universal syntactic relations"). There will also be features of the text not tagged with a part of speech. These include grammatical and lexical aspects of the plain text. These are labeled with their appropriate morphological tag. 
+```
+# Syntactic relations
+  
+dep_rel <- table(annotated$dep_rel)
+  
+# Morphological features
+  
+feat_names <- c('morph_abbr',
+                'morph_animacy',
+                'morph_aspect',
+                'morph_case',
+                'morph_clusivity',
+                'morph_definite',
+                'morph_degree',
+                'morph_evident',
+                'morph_foreign',
+                'morph_gender',
+                'morph_mood',
+                'morph_nounclass',
+                'morph_number',
+                'morph_numtype',
+                'morph_person',
+                'morph_polarity',
+                'morph_polite',
+                'morph_poss',
+                'morph_prontype',
+                'morph_reflex',
+                'morph_tense',
+                'morph_typo',
+                'morph_verbform',
+                'morph_voice')
 
+feat_vec <- c()
+      
+for(j in 1:length(feat_names)){
+        
+    if(feat_names[j]%in%colnames(annotated)){
+          morph_tmp   <- table(annotated[,feat_names[j]])
+          names_tmp   <- paste0(feat_names[j],'_',names(morph_tmp))
+          morph_tmp   <- as.vector(morph_tmp)
+          names(morph_tmp) <- names_tmp
+          feat_vec  <- c(feat_vec,morph_tmp)
+        }
+      }
+```
+## Natural Language Processing (NLP)
+Natural Language Processing (NLP) is the process of breaking text into parts (i.e. tokens, lemmas, words, POS tags) and converting information gathered via a neural network model into a numerical vector that holds meaningful data representative of the text. For more information regarding NLP, please refer to Dan Jurafsky and James H. Martin's book, **Speech and Language Processing** We use NLP when extracting text features to calculate sentence embeddings. NLP requires that we use packages from both Python and CRAN to complete the process here. NLP models provide meaningful contextual and numerical representations of words or sentences. These representations can be used as feature for predictive models to assist in obtaining a certain outcome - such as readability. Below is a code chunk modeling how to download the necessary packages from Python. 
+```
+require(reticulate)
 
+# List the available Python environments
+
+virtualenv_list()
+
+# Import the modules
+
+reticulate::import('torch')
+reticulate::import('numpy')
+reticulate::import('transformers')
+reticulate::import('nltk')
+reticulate::import('tokenizers')
+
+# Load the text package
+
+require(text)
+
+```
+### Sentence Embeddings
+An entire sentence can be represented using a numerical vector. `textEmbed` allows us to return a matrix of text embeddings for each word in the plan text as well as a vector of embeddings for the whole sentence. This matrix is comprised of several dimensions in which the sentence is represented wothin. 
+```
+embeds <- textEmbed(x = new.text,
+                    model = 'roberta-base',
+                    layers = 12,
+                    context_aggregation_layers = 'concatenate')
+
+```
+## Final Steps
+The following code chunk displays the final steps in creating text features to contribute to our readability model. 
+```
+# combine them all into one vector and store in the list object
+      
+input <- cbind(text_sm[2:length(text_sm)],
+                          wl.features,
+                          as.data.frame(ent),
+                          text_lexdiv[,2:ncol(text_lexdiv)],
+                          text_readability[,2:ncol(text_readability)],
+                          t(as.data.frame(pos_tags)),
+                          t(as.data.frame(c(dep_rel))),
+                          t(as.data.frame(feat_vec)),
+                          as.data.frame(embeds$x))
+
+# feature names from the model
+  
+my_feats <- my.model$recipe$var_info$variable
+
+# Find the features missing from the new text
+      
+missing_feats <- ! my_feats %in% colnames(input)
+      
+# Add the missing features (with assigned values of zeros)
+        
+temp           <- data.frame(matrix(0,1,sum(missing_feats)))
+colnames(temp) <- my_feats[missing_feats]
+   
+input <- cbind(input,temp)
+      
+return(list(input=input))
+}
+```
+
+Please move on to the next post in this series **Readability Model** to continue learning how to build our predictive model. For more information regarding creation of text features, refer to Dr. Zopluoglu's lecture [Data Pre-Processing II (Text Data)](https://ml-21.netlify.app/notes/lecture-2b.html "Data Pre-Processing II (Text Data"). 
 
 
 Resources
