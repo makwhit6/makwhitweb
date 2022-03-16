@@ -1,6 +1,6 @@
 ---
 author: Makayla Whitney
-date: "2022-03-03"
+date: "2022-10-03"
 description: model development process
 tags:
 - markdown
@@ -219,7 +219,7 @@ return(list(input=input))
 }
 ```
 
-Please move on to the next post in this series **Readability Model** to continue learning how to build our predictive model. For more information regarding creation of text features, refer to Dr. Zopluoglu's lecture [Data Pre-Processing II (Text Data)](https://ml-21.netlify.app/notes/lecture-2b.html "Data Pre-Processing II (Text Data"). 
+Please move on to the next post in this series **Readability Model** to continue learning how to build our predictive model. For more information regarding creation of text features, refer to Dr. Zopluoglu's lecture [Data Pre-Processing II (Text Data)](https://ml-21.netlify.app/notes/lecture-2b.html "Data Pre-Processing II (Text Data)"). 
 
 
 Resources
