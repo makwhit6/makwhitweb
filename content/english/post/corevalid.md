@@ -49,7 +49,7 @@ The readability score predictions were applied to the [Bradley-Terry model](http
 
 The first time running the easyCBM data through the model and plotting the correlation between the predictions and student scores resulted in the following plot. Data has an average correlation of -0.3419986. 
 
-![CORE Readability Predictions](/Plots/coreprediction.png)
+![CORE Readability Predictions](/Plots/corepredictions.png)
 
 Bradley-Terry analysis developed a range between 0 and 4 for this data set. A lower value indicates the text is more difficult to read, whereas a higher value indicates an easier text. From the plot above, it is difficult to determine if there is a correlation between passage length and overall difficulty. Typically, the longer the text, the lower the level of readability. This plot seems to display three groups of words read correctly per minute with data spread across the analysis range. This could be due to the lack of constraints on students time allotted for the assessment.Further investigation into the effects of passage length and time allotted for each student on overall readability will be conducted. 
 
