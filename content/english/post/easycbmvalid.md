@@ -101,7 +101,7 @@ The final data frame is displayed below. The last column `readability score` was
 The first time running the easyCBM data through the model and plotting the correlation between the predictions and student scores resulted in the discovery of an outlier. This outlier was form 7 from grade 3; the average WRC was 431.04619 across students, which is over 200 points higher than the rest of the forms. Removing this outlier resulted in the below plot with an average correlation of -0.5569613. 
 
 
-[easyCBM Readability Predictions](Plots/readabilitypredictions.jpeg)
+![easyCBM Readability Predictions](/Plots/readprediction.png)
 
 
 
